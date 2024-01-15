@@ -1,13 +1,10 @@
 // API keys
-const openWeatherMapApiKey = "ebb88b956bf8c05653e9de0ca2230d40";
+const openWeatherMaApiKey = "ebb88b956bf8c05653e9de0ca2230d40";
 const nyTimesApiKey = "uDC9FtINoMvYp08zQbOiSeHxUhancoEb";
-
 // API URLs
 const baseUrl = "https://api.openweathermap.org/data/2.5/forecast";
 const articleBaseUrl = "https://api.nytimes.com/svc/search/v2/articlesearch.json";
-
-// Rest of your JavaScript code goes here
-
+const cityImagesBaseUrl = "https://api.teleport.org/api/urban_areas";
 
 $(document).ready(function() {
   const cityInput = $('#city-input');
