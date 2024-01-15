@@ -3,31 +3,34 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Weather Dashboard</title>
-  <link rel="stylesheet" href="main.css">
+  <title>Weather App</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div id="weather-dashboard">
-    <div id="city-input-container">
-      <label for="city-input">Enter City:</label>
-      <input type="text" id="city-input" placeholder="Type city name">
-      <button id="search-button">Search</button>
-    </div>
+  <header id="header"><h1>Weather Dashboard</h1></header>
+  <div id="app-container">
+    <aside id="left-sidebar">
+      <h3>Saved Cities</h3>
+      <ul id="history-list"></ul>
+      
+      <!-- New grid container for images -->
+      <div id="city-images-container" class="grid-container"></div>
+    </aside>
+    <main id="main-content">    
+      <div id="search-container">
+        <input type="text" id="city-input" placeholder="Enter City">
+        <button id="search-button">Search</button>
+      </div>
 
-    <div id="city-display-container">
-      <!-- Display current weather and 4-day forecast here -->
-    </div>
+      <div id="currentWeatherContainer" class="weather-container"></div>
+      <div id="forecastContainer" class="weather-container"></div>
+    </main>   
+    <aside id="right-sidebar">
+      <h3 id="articles-header">Articles about [default city]</h3>
+      <!-- Overflow cities will be displayed here -->
+    </aside>
   </div>
-
-  <div id="left-sidebar">
-    <h2>Articles</h2>
-    <ul id="articles-list"></ul>
-
-    <h2>Pictures</h2>
-    <div id="city-images-container"></div>
-  </div>
-
-  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-  <script src="main.js"></script>
+  <footer id="footer"> <p>MIT License | Copyright (c) 2023 Aijamal Jusupova</p></footer>
+  <script src="new-weather-dashboard.js"></script>
 </body>
 </html>
