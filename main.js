@@ -20,32 +20,78 @@ $(document).ready(function() {
       const articlesApiUrl = `${articleBaseUrl}?api-key=${nyTimesApiKey}&q=${cityName}`;
       const cityImagesApiUrl = `${cityImagesBaseUrl}/${cityName.toLowerCase()}/images/`;
 
-      // Fetch and display weather data
-      fetchWeatherData(weatherApiUrl);
+      articles data from:", apiUrl);
+fetch(apiUrl)
+.then(response => response.json())
+.then(data => {
+console.log("Articles data received:", data);
+displayArticles(data);
+})
+.catch(error => console.error("Error fetching articles data:", error));
+}
 
-      // Fetch and display articles
-      fetchArticlesData(articlesApiUrl);
+// Function to Display Articles
+function displayArticles(data) {
+const articlesList = data.response.docs.slice(0, 5);
 
-      // Fetch and display city images
-      fetchCityImages(cityImagesApiUrl);
-    } else {
-      alert('Please enter a city name.');
-    }
-  });
+// Display header with the current city name
+const cityName = cityInput.value.trim();
+const articlesHeader = document.createElement('h3');
+articlesHeader.id = 'articles-header';
+articlesHeader.textContent = Articles about ${cityName};
+rightSidebar.innerHTML = ''; // Clear the rightSidebar content
+rightSidebar.appendChild(articlesHeader);
 
-  function fetchWeatherData(apiUrl) {
-    // Implement fetching and displaying weather data here
-    // Update cityDisplayContainer with the fetched data
-  }
+// Display articles
+const articlesHTML = articlesList.map(article => {
+const articleDate = new Date(article.pub_date);
+const articleSnippet = article.snippet;
 
-  function fetchArticlesData(apiUrl) {
-    // Implement fetching and displaying articles here
-    // Update articlesList with the fetched data
-  }
+return `
+  <div>
+    <p>Date: ${articleDate.toLocaleDateString()}</p>
+    <p>Snippet: ${articleSnippet}</p>
+  </div>
+`;
+}).join('');
 
-  function fetchCityImages(apiUrl) {
-    // Implement fetching and displaying city images here
-    // Update cityImagesContainer with the fetched data
-  }
+rightSidebar.innerHTML += articlesHTML;
+}
+
+// Function to Add to History
+function addToHistory(cityName) {
+const listItem = document.createElement('li');
+listItem.textContent = cityName;
+historyList.appendChild(listItem);
+}
+
+// Function to Save to Local Storage
+function saveToLocalStorage(cityName) {
+let history = JSON.parse(localStorage.getItem('weatherHistory')) || [];
+history.push(cityName);
+localStorage.setItem('weatherHistory', JSON.stringify(history));
+}
+
+// Function to Initialize Local Storage if empty
+function initializeLocalStorage() {
+const history = JSON.parse(localStorage.getItem('weatherHistory')) || [];
+if (!history.length) {
+localStorage.setItem('weatherHistory', JSON.stringify([]));
+}
+}
+
+// Function to Load from Local Storage
+function loadFromLocalStorage() {
+const history = JSON.parse(localStorage.getItem('weatherHistory')) || [];
+history.forEach(city => addToHistory(city));
+}
+
+// Load historical data when the page is initially loaded
+document.addEventListener("DOMContentLoaded", function () {
+initializeLocalStorage();
+loadFromLocalStorage();
 });
 
+
+
+  
