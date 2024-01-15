@@ -1,1 +1,37 @@
 
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  display: flex;
+}
+
+#weather-dashboard {
+  flex-grow: 1;
+  padding: 20px;
+}
+
+#city-input-container {
+  margin-bottom: 10px;
+}
+
+#city-input, #search-button {
+  margin-bottom: 10px;
+}
+
+#left-sidebar {
+  width: 200px;
+  background-color: #1a1a1a;
+  color: #fff;
+  overflow-y: auto;
+}
+
+#articles-list {
+  list-style: none;
+  padding: 0;
+}
+
+#city-images-container img {
+  max-width: 100%;
+  height: auto;
+  margin-bottom: 10px;
+}
