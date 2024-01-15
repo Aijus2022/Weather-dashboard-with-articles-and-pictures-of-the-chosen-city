@@ -1,111 +1,33 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>City Images App</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-    }
-
-    #city-input, #search-button {
-      margin-bottom: 10px;
-    }
-
-    #city-images-container img {
-      max-width: 100%;
-      height: auto;
-      margin-bottom: 10px;
-    }
-  </style>
-  <!-- Include jQuery library -->
-  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+  <title>Weather Dashboard</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+  <div id="weather-dashboard">
+    <div id="city-input-container">
+      <label for="city-input">Enter City:</label>
+      <input type="text" id="city-input" placeholder="Type city name">
+      <button id="search-button">Search</button>
+    </div>
 
-  <input type="text" id="city-input" placeholder="Enter City">
-  <button id="search-button">Search</button>
-  <div id="city-images-container"></div>
+    <div id="city-display-container">
+      <!-- Display current weather and 4-day forecast here -->
+    </div>
+  </div>
 
-  <script>
-    $(document).ready(function() {
-      // API keys
-const openWeatherMapApiKey = "ebb88b956bf8c05653e9de0ca2230d40";
-const nyTimesApiKey = "uDC9FtINoMvYp08zQbOiSeHxUhancoEb";
+  <div id="left-sidebar">
+    <h2>Articles</h2>
+    <ul id="articles-list"></ul>
 
-// API URLs
-const baseUrl = "https://api.openweathermap.org/data/2.5/forecast";
-const articleBaseUrl = "https://api.nytimes.com/svc/search/v2/articlesearch.json";
+    <h2>Pictures</h2>
+    <div id="city-images-container"></div>
+  </div>
 
-// Rest of your JavaScript code goes here
-
-
-      const cityImagesBaseUrl = "https://api.teleport.org/api/urban_areas";
-      const cityInput = $("#city-input");
-      const searchButton = $("#search-button");
-      const cityImagesContainer = $("#city-images-container");
-
-      searchButton.on("click", function () {
-        const cityName = cityInput.val().trim();
-        if (cityName !== "") {
-          const weatherApiUrl = `${weatherApiBaseUrl}?q=${cityName}&appid=${openWeatherMapApiKey}`;
-          const articlesApiUrl = `${articleBaseUrl}?api-key=${nyTimesApiKey}&q=${cityName}`;
-          const cityImagesApiUrl = `${cityImagesBaseUrl}/${cityName.toLowerCase()}/images/`;
-
-          fetchCityData(weatherApiUrl, cityName);
-          fetchArticlesData(articlesApiUrl);
-          fetchCityImages(cityImagesApiUrl);
-        } else {
-          alert("Please enter a city name.");
-        }
-      });
-
-      function fetchCityData(apiUrl, cityName) {
-        fetch(apiUrl)
-          .then(response => response.json())
-          .then(data => {
-            // Process weather data as needed
-            console.log("Weather data for", cityName, ":", data);
-          })
-          .catch(error => console.error("Error fetching weather data:", error));
-      }
-
-      function fetchArticlesData(apiUrl) {
-        fetch(apiUrl)
-          .then(response => response.json())
-          .then(data => {
-            // Process articles data as needed
-            console.log("Articles data:", data);
-          })
-          .catch(error => console.error("Error fetching articles data:", error));
-      }
-
-      function fetchCityImages(apiUrl) {
-        $.ajax({
-          url: apiUrl,
-          method: "GET",
-          dataType: "json",
-          success: function(data) {
-            // Process city images data as needed
-            console.log("City images data:", data);
-            displayCityImages(data, cityImagesContainer);
-          },
-          error: function(error) {
-            console.error("Error fetching city images:", error);
-          }
-        });
-      }
-
-      function displayCityImages(data, container) {
-        // Assuming data is an array of image URLs
-        data.photos.forEach(photo => {
-          const img = $("<img>").attr("src", photo.image.web);
-          container.append(img);
-        });
-      }
-    });
-  </script>
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
